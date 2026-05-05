@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Riaya.API/Riaya.API.csproj" />
+  <Project Path="Riaya.Application/Riaya.Application.csproj" />
+  <Project Path="Riaya.Domain/Riaya.Domain.csproj" />
+  <Project Path="Riaya.Infrastructure/Riaya.Infrastructure.csproj" />
+  <Project Path="Riaya.Persistence/Riaya.Persistence.csproj" />
+</Solution>
