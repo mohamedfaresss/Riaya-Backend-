@@ -1,4 +1,3 @@
-﻿// JwtService.cs
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Riaya.Application.Auth.Interfaces;

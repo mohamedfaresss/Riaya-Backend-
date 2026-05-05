@@ -1,4 +1,4 @@
-﻿// AuthController.cs
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Riaya.Application.Auth.Interfaces;

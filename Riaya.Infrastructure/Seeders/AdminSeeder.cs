@@ -1,4 +1,4 @@
-﻿using BC = BCrypt.Net.BCrypt;
+using BC = BCrypt.Net.BCrypt;
 using Microsoft.EntityFrameworkCore;
 using Riaya.Domain.Entities;
 using Riaya.Domain.Enums;
@@ -10,13 +10,11 @@ public static class AdminSeeder
 {
     public static async Task SeedAsync(AppDbContext context)
     {
-        // لو Admin موجود مسبقاً مش هيضيف تاني
         var adminExists = await context.Users
             .AnyAsync(u => u.Role == UserRole.Admin);
 
         if (adminExists) return;
 
-        // ضيف Clinic الأول لو مش موجود
         var clinic = await context.Clinics.FirstOrDefaultAsync();
         if (clinic == null)
         {
@@ -25,7 +23,6 @@ public static class AdminSeeder
             await context.SaveChangesAsync();
         }
 
-        // ضيف Admin
         var admin = new User
         {
             FirstName = "Super",

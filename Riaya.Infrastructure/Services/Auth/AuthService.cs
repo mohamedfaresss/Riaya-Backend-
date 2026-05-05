@@ -1,4 +1,4 @@
-﻿using BC = BCrypt.Net.BCrypt;
+using BC = BCrypt.Net.BCrypt;
 using Microsoft.EntityFrameworkCore;
 using Riaya.Application.Auth.Interfaces;
 using Riaya.Application.Features.Auth.DTOs;
@@ -65,7 +65,6 @@ public class AuthService : IAuthService
         if (user == null || !BC.Verify(request.Password, user.PasswordHash))
             throw new UnauthorizedAccessException("Invalid credentials");
 
-        // ✅ لو اتحذف مينفعش يدخل
         if (user.IsDeleted)
             throw new UnauthorizedAccessException("Account has been deactivated");
 
@@ -81,11 +80,9 @@ public class AuthService : IAuthService
         if (token == null || token.IsRevoked || token.ExpiresAtUtc < DateTime.UtcNow)
             throw new UnauthorizedAccessException("Invalid or expired refresh token");
 
-        // Revoke القديم
         token.IsRevoked = true;
         await _context.SaveChangesAsync();
 
-        // اعمل جديد
         return await GenerateAuthResponseAsync(token.User);
     }
 

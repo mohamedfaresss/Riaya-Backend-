@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Riaya.Application.Features.Doctors.DTOs;
 using Riaya.Application.Features.Doctors.Interfaces;
@@ -17,13 +17,11 @@ public class DoctorController : ControllerBase
         _service = service;
     }
 
-    // 🔥 PUBLIC — أي حد يقدر يشوف الدكاترة
     [HttpGet]
     [AllowAnonymous]
     public async Task<IActionResult> GetAll()
         => Ok(await _service.GetAllDoctorsAsync());
 
-    // 👨‍⚕️ Doctor فقط
     [HttpGet("profile")]
     [Authorize(Roles = "Doctor")]
     public async Task<IActionResult> GetProfile()
@@ -32,7 +30,6 @@ public class DoctorController : ControllerBase
         return Ok(await _service.GetProfileAsync(userId));
     }
 
-    // 👨‍⚕️ Doctor فقط — مع صورة
     [HttpPut("profile")]
     [Authorize(Roles = "Doctor")]
     public async Task<IActionResult> UpdateProfile([FromForm] UpdateDoctorProfileRequest request)
@@ -42,7 +39,6 @@ public class DoctorController : ControllerBase
         return Ok(new { message = "Profile updated successfully" });
     }
 
-    // 👨‍⚕️ Doctor فقط
     [HttpGet("my-slots")]
     [Authorize(Roles = "Doctor")]
     public async Task<IActionResult> GetMySlots()
@@ -51,13 +47,11 @@ public class DoctorController : ControllerBase
         return Ok(await _service.GetMyTimeSlotsAsync(userId));
     }
 
-    // 🔓 ممكن تخليها public كمان لو حابب
     [HttpGet("specializations")]
     [AllowAnonymous]
     public async Task<IActionResult> GetSpecializations()
         => Ok(await _service.GetSpecializationsAsync());
 
-    // 👨‍⚕️ Doctor فقط
     [HttpDelete("slots/{slotId}")]
     [Authorize(Roles = "Doctor")]
     public async Task<IActionResult> DeleteSlot(Guid slotId)

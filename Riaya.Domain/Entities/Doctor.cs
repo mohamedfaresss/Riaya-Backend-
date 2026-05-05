@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,7 +11,6 @@ namespace Riaya.Domain.Entities
 
         public string Specialty { get; set; } = string.Empty;
 
-        // 🔥 ضيف دول
         public string University { get; set; } = string.Empty;
         public int YearsOfExperience { get; set; }
 

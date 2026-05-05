@@ -116,7 +116,6 @@ var app = builder.Build();
 
 // ================== Middleware ==================
 
-// Swagger يشتغل في كل الحالات + يفتح على /
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {

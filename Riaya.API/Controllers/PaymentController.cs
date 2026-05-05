@@ -17,7 +17,6 @@ public class PaymentController : ControllerBase
         _service = service;
     }
 
-    // المريض يبدأ عملية الدفع
     [HttpPost("initiate")]
     [Authorize(Roles = "Patient")]
     public async Task<IActionResult> Initiate([FromBody] InitiatePaymentRequest request)
@@ -28,7 +27,6 @@ public class PaymentController : ControllerBase
         return Ok(result);
     }
 
-    // Paymob بيبعت callback بعد الدفع
     [HttpPost("callback")]
     [AllowAnonymous]
     public async Task<IActionResult> Callback([FromBody] PaymobCallbackDto callback)

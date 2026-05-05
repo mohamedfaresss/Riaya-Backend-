@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Riaya.Application.Features.Doctors.DTOs;
 using Riaya.Application.Features.Doctors.Interfaces;
 using Riaya.Application.Features.TimeSlots.DTOs;
@@ -48,16 +48,13 @@ public class DoctorService : IDoctorService
         if (doctor == null)
             throw new NotFoundException("Doctor not found");
 
-        // 👤 User
         doctor.User.FirstName = request.FirstName;
         doctor.User.LastName = request.LastName;
 
-        // 🧑‍⚕️ Doctor
         doctor.Specialty = request.Specialty;
         doctor.University = request.University;
         doctor.YearsOfExperience = request.YearsOfExperience;
 
-        // 🔥 Upload Image
         if (request.Image != null)
         {
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
