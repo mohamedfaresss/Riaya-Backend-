@@ -1,4 +1,4 @@
-﻿namespace Riaya.Application.Features.Auth.DTOs;
+namespace Riaya.Application.Features.Auth.DTOs;
 
 public class RegisterRequest
 {
@@ -7,5 +7,7 @@ public class RegisterRequest
 
     public string Email { get; set; } = string.Empty;
     public string Password { get; set; } = string.Empty;
+    public decimal? ConsultationFee { get; set; }
+
 
 }

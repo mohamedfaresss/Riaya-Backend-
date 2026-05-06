@@ -36,6 +36,7 @@ public class DoctorService : IDoctorService
             University = doctor.University,
             Experience = MapDoctorExperience(doctor),
             ImageUrl = doctor.ProfileImageUrl
+
         };
     }
 
@@ -82,17 +83,18 @@ public class DoctorService : IDoctorService
 
         return await _context.Doctors
             .Include(d => d.User)
-            .Select(d => new DoctorListItemDto
-            {
-                Id = d.Id,
-                FullName = d.User.FirstName + " " + d.User.LastName,
-                Email = d.User.Email,
-                Specialization = d.Specialty,
-                University = d.University,
-                YearsOfExperience = d.YearsOfExperience,
-                IsAvailable = d.TimeSlots.Any(ts => ts.Booking == null && ts.StartAtUtc > now),
-                ProfileImageUrl = d.ProfileImageUrl
-            })
+           .Select(d => new DoctorListItemDto
+           {
+               Id = d.Id,
+               FullName = d.User.FirstName + " " + d.User.LastName,
+               Email = d.User.Email,
+               Specialization = d.Specialty,
+               University = d.University,
+               YearsOfExperience = d.YearsOfExperience,
+               IsAvailable = d.TimeSlots.Any(ts => ts.Booking == null && ts.StartAtUtc > now),
+               ProfileImageUrl = d.ProfileImageUrl,
+               ConsultationFee = d.ConsultationFee  
+           })
             .ToListAsync();
     }
 

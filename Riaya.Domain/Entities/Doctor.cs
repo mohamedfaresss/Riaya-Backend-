@@ -14,6 +14,8 @@ namespace Riaya.Domain.Entities
         public string University { get; set; } = string.Empty;
         public int YearsOfExperience { get; set; }
 
+        public decimal ConsultationFee { get; set; } = 0;
+
         public Clinic Clinic { get; set; } = null!;
         public User User { get; set; } = null!;
 

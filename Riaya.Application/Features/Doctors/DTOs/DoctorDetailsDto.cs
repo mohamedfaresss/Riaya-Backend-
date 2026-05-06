@@ -1,4 +1,4 @@
-﻿using Riaya.Application.Features.TimeSlots.DTOs;
+using Riaya.Application.Features.TimeSlots.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,7 +21,6 @@ namespace Riaya.Application.Features.Doctors.DTOs
 
         public bool IsAvailable { get; set; }
 
-        // 🔥 دي أهم حاجة
         public List<TimeSlotDto> AvailableSlots { get; set; } = new();
     }
 }

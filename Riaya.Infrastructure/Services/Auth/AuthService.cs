@@ -50,7 +50,9 @@ public class AuthService : IAuthService
         if (role == UserRole.Patient)
             _context.Patients.Add(new Patient { UserId = user.Id, ClinicId = clinic.Id });
         else if (role == UserRole.Doctor)
-            _context.Doctors.Add(new Doctor { UserId = user.Id, ClinicId = clinic.Id });
+            _context.Doctors.Add(new Doctor { UserId = user.Id, ClinicId = clinic.Id,
+                ConsultationFee = request.ConsultationFee ?? 0 
+            });
 
         await _context.SaveChangesAsync();
 

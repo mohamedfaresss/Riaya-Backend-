@@ -24,8 +24,15 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<DoctorSchedule>().HasQueryFilter(s => !s.IsDeleted);
         modelBuilder.Entity<Payment>().HasQueryFilter(p => !p.Patient.IsDeleted);
 
-
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+
+        // ── Doctor ────────────────────────────────────────────
+        modelBuilder.Entity<Doctor>(entity =>
+        {
+            entity.Property(d => d.ConsultationFee)
+                  .HasColumnType("decimal(18,2)")
+                  .HasDefaultValue(0m); // ✅ Fix: تحديد النوع والدقة
+        });
 
         // ── RefreshToken ──────────────────────────────────────
         modelBuilder.Entity<RefreshToken>(entity =>
@@ -57,26 +64,21 @@ public class AppDbContext : DbContext
             entity.Property(p => p.Status)
                   .HasConversion<int>();
 
-            // Payment → Patient (no cascade)
             entity.HasOne(p => p.Patient)
                   .WithMany()
                   .HasForeignKey(p => p.PatientId)
                   .OnDelete(DeleteBehavior.NoAction);
 
-
-            // Payment → TimeSlot (no cascade)
             entity.HasOne(p => p.TimeSlot)
                   .WithMany()
                   .HasForeignKey(p => p.TimeSlotId)
                   .OnDelete(DeleteBehavior.NoAction);
 
-            // Payment → Clinic (no cascade)
             entity.HasOne(p => p.Clinic)
                   .WithMany()
                   .HasForeignKey(p => p.ClinicId)
                   .OnDelete(DeleteBehavior.NoAction);
 
-            // Payment → Booking (optional, one-to-one)
             entity.HasOne(p => p.Booking)
                   .WithOne()
                   .HasForeignKey<Payment>(p => p.BookingId)
@@ -84,7 +86,7 @@ public class AppDbContext : DbContext
                   .OnDelete(DeleteBehavior.NoAction);
         });
 
-        // ── TimeSlot Price default ────────────────────────────
+        // ── TimeSlot ──────────────────────────────────────────
         modelBuilder.Entity<TimeSlot>(entity =>
         {
             entity.Property(t => t.Price)
@@ -101,5 +103,5 @@ public class AppDbContext : DbContext
     public DbSet<Clinic> Clinics => Set<Clinic>();
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<DoctorSchedule> DoctorSchedules => Set<DoctorSchedule>();
-    public DbSet<Payment> Payments => Set<Payment>();  // ← جديد
+    public DbSet<Payment> Payments => Set<Payment>();
 }

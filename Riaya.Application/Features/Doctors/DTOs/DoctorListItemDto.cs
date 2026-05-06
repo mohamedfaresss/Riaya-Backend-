@@ -19,5 +19,7 @@ namespace Riaya.Application.Features.Doctors.DTOs
         public bool IsAvailable { get; set; }
 
         public string? ProfileImageUrl { get; set; }
+        public decimal ConsultationFee { get; set; }
+
     }
 }
